@@ -78,8 +78,8 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, sqlalchemy.ForeignKey("blog_posts.id"))
     parent_post = relationship("BlogPost", back_populates="")
 
-with app.app_context():
-    db.create_all()
+# with app.app_context():
+#     db.create_all()
 
 
 def admin_only(func):
