@@ -9,3 +9,4 @@ Flask-WTF==1.1.1
 SQLAlchemy==2.0.15
 Werkzeug==2.3.4
 WTForms==2.3.3
+python-dotenv==1.0.0
