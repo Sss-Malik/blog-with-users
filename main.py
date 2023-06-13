@@ -15,7 +15,7 @@ import sqlalchemy
 
 load_dotenv(encoding="utf8")
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "201909128757"
+app.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
@@ -33,7 +33,7 @@ gravatar = Gravatar(app,
                     base_url=None)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL",  "sqlite:///blog.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -78,8 +78,8 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, sqlalchemy.ForeignKey("blog_posts.id"))
     parent_post = relationship("BlogPost", back_populates="")
 
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.create_all()
 
 
 def admin_only(func):
