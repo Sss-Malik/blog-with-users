@@ -1,4 +1,3 @@
-from sqlalchemy import ForeignKey
 from flask import Flask, render_template, redirect, url_for, flash, abort
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
@@ -56,7 +55,7 @@ class User(UserMixin, db.Model):
 class BlogPost(db.Model):
     __tablename__ = "blog_posts"
     id = db.Column(db.Integer, primary_key=True)
-    author_id = db.Column(db.Integer, ForeignKey("users.id"))
+    author_id = db.Column(db.Integer, sqlalchemy.ForeignKey("users.id"))
     author = relationship("User", back_populates="posts")
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
@@ -72,12 +71,11 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text, nullable=False)
 
-    author_id = db.Column(db.Integer, ForeignKey("users.id"))
+    author_id = db.Column(db.Integer, sqlalchemy.ForeignKey("users.id"))
     comment_author = relationship("User", back_populates="comments")
 
-    post_id = db.Column(db.Integer, ForeignKey("blog_posts.id"))
+    post_id = db.Column(db.Integer, sqlalchemy.ForeignKey("blog_posts.id"))
     parent_post = relationship("BlogPost", back_populates="")
-
 
 # with app.app_context():
 #     db.create_all()
