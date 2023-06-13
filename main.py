@@ -11,10 +11,11 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 import os
 from dotenv import load_dotenv, dotenv_values
+import sqlalchemy
 
 load_dotenv(encoding="utf8")
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
+app.config['SECRET_KEY'] = "201909128757"
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
